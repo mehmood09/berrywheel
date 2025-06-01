@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<div class="card mb-3 mx-auto">
+   <div class="row g-0">
+     <div class="col-md-4">
+           {% if car.image %}
+               <img src="{{ car.image.url }}" 
+               class="img-fluid rounded shadow"
+               alt="{{ car.title }}" />
+               {% else %}
+               <img src="https://placehold.co/800?text=placeholder"
+                class="img-fluid rounded shadow"
+               alt="{{ car.title }}" />
+           {% endif %}
+       </div>
+     <div class="col-md-8">
+      <h5 class="card-header">
+           {{ car.title }}
+         </h5>
+       <div class="card-body">
+         <p class="card-text">
+         <strong>Description:</strong><br/>
+            {{ car.description }} <br/><br/>
+        <small class="text-body-secondary">
+               <i> added on {{ car.created_at|date:"M d, Y " }} </i>
+           </small>
+         </p>
+        
+       <div class="card-text">
+         hello
+          <form action="{% url "listings:toggle_favorite" car_id=car.id %}"
+            method="post">
+            {% csrf_token %}
+            {% if car in user.favorite_listings.all %}
+              <button type="submit" class="btn btn-link p-0 m-0">
+                <i class="fas fa-heart" style="color:red"></i>
+              </button>
+            {% else %}
+            <button type="submit" class="btn btn-link p-0 m-0">
+              <i class="far fa-heart"></i>
+            </button>
+            {% endif %}
+          </form>
+            {% comment %} <a href="{% url "listings:delete_car" car.id %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            <a class="p-3" href="{% url "listings:edit_car" car.id %}"> <i class="fas fa-edit"></i></a> {% endcomment %}
+           </div>
+           {% comment %} <small> <a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a> </small> {% endcomment %}                     
+       </div>
+     </div>
+   </div>
+ </div>
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div class="container">
+        <div class="col-md-12">
+            <h3 class="display-4">Find Used Cars in Pakistan</h3>
+            <p class="lead">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et autem illum, maiores deserunt esse magnam. Ullam, voluptatem totam necessitatibus eos tempore non? At, sint fugit. Saepe vitae reprehenderit adipisci facere?
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <h6 class="display-5">Categories</h6>
+        <a href="{% url "marketplace_app:add_category" %}">Add Category</a>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            {% for category in categories %}
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100  text-bg-light mb-3">
+                        <a class="card-title text-decoration-none" href="{% url "marketplace_app:listings" category.id %}">
+                            <div class="card-body text-center fw-bold text-secondary">
+                                <i class="fa-solid fa-car" style="color: skyblue; height: 25px; width:30px;"></i>
+                                <br/><br/>{{ category }} </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

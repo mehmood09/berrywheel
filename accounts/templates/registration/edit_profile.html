@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1> Edit Profile </h1>
+{{ user.profile }}
+<div class="mb-3">
+    {% if request.user.profile.profile_photo %}
+    <img src="{{ request.user.profile.profile_photo.url }}" 
+        height="100" 
+        width="100"
+        alt="Profile photo"
+        class="img-thumbnail" />
+        {% else %}
+        <p> No Photo uploaded </p>
+    {% endif %}
+</div>
+    <div>
+    <form method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+     {{form.as_p}}
+     <button type="submit"> Save changes </button>
+    </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block page_header %}
+    <h3>
+        Cars under <i>{{ category }} </i>
+    </h3>
+{% endblock page_header %}
+{% block content %}
+    <div>
+        {% for car in listings %}
+            <div class="card mb-3 mx-auto" style="max-width: 900px;">
+                <div class="row g-0 ">
+                    <div class="col-md-6 d-flex justify-content-center">
+                        {% if car.image %}
+                            <img src="{{ car.image.url }}"
+                                 alt="{{ car.title }}"
+                                 class="img-fluid rounded shadow center">
+                        {% else %}
+                            <img src="https://placehold.co/800?text=placeholder"
+                                 alt="{{ car.title }}"
+                                 class="img-fluid rounded shadow">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ car.title }}</h5>
+                            <p class="card-text mt-5 text-body-secondary">
+                                {{ car.brand }} | {{ car.model }} | {{ car.year }} {{ car.speed }} km | {{ car.power }} cc
+                            </p>
+                            <p class="card-text">
+                                <small class="text-body-secondary"><i>updated on {{ car.created_at|date:"M d, Y " }} </i></small>
+                            </p>
+                            <small>
+                                <a href="{% url "listings:car_detail" car.id %}">View Car Details</a>
+                            </small>
+                                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

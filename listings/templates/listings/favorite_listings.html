@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block page_header %}
+    <h3>My Wishlist</h3>
+{% endblock page_header %}
+{% block content %}
+    {% if listings.exists %}
+        <div>
+            {% for car in listings %}
+                <div class="card mb-3 mx-auto" style="max-width: 950px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex justify-content-center">
+                            {% if car.image %}
+                                <img src="{{ car.image.url }}"
+                                     alt="{{ car.title }}"
+                                     class="img-fluid rounded shadow">
+                            {% else %}
+                                <img src="https://placehold.co/800?text=placeholder&font=roboto"
+                                     alt="{{ car.title }}"
+                                     class="img-fluid rounded shadow">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8 ">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ car.title }}</h5>
+                                <p>Description:</p>
+                                <p class="card-text">{{ car.description }}-<br/><br/>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt iusto repellendus perferendis soluta, corporis error voluptatibus nulla quam eligendi consequatur sint ut praesentium. Id blanditiis nemo exercitationem ratione animi pariatur.
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-body-secondary"><i>added: {{ car.created_at|date:"M d, Y " }} </i></small>
+                                </p>
+                                <small> <a href="{% url "listings:car_detail" car.id %}">View recipe details</a> </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have not added any cars to your Wish List yet.</p>
+    {% endif %}
+{% endblock content %}

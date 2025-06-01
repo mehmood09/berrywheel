@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheel App</title>
+</head>
+<body>
+    <div>
+        {% if user.is_authenticated %}
+        <h1> <span> Welcome, {{ user.username}} </span></h1>
+    {% else %}
+    <li>
+        <a href = {% url "accounts:register" %}> Register </a>
+    </li>
+    <li>
+        <a href = {% url "accounts:login" %}> Login </a>
+    </li>
+    <form action="{% url "accounts:logout" %}" method="post">
+     {% csrf_token %}
+     <button type="submit"> Logout </button>
+    </form>
+    {% endif %}
+    </div>
+</body>
+</html>
