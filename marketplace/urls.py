@@ -24,4 +24,6 @@ urlpatterns = [
     path("",include("marketplace_app.urls")),
     path("listings/", include("listings.urls")),
     path("accounts/", include("accounts.urls")),
+    path("api/", include("myapp.urls")),
+    path("api/", include("blog.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
